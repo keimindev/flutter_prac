@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Snack Bar",
       // 정상적으로 실행되었을 때 제일 먼저 보여주는 곳이 home
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
       home: MyPage(),
     );
   }
@@ -22,71 +25,29 @@ class MyApp extends StatelessWidget {
 class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // web 화면구성을 위해 도와주는 도화지같은 요소 이거 필수임
     return Scaffold(
-      backgroundColor: Colors.red,
-      appBar: AppBar(
-        title: Text('Snack Bar'),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/moon.png'),
-                backgroundColor: Colors.white,
-              ),
-              otherAccountsPictures: <Widget>[
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/redux.png'),
-                  backgroundColor: Colors.white,
-                ),
-              ],
-              accountName: Text('Moon'),
-              accountEmail: Text('moon@gmail.com'),
-              onDetailsPressed: () {
-                print('open drawer');
-              },
-              decoration: BoxDecoration(
-                  color: Colors.red[200],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0),
-                  )),
-            ),
-            ListTile(
-              leading: Icon(Icons.home, color: Colors.grey[850]),
-              title: Text("Home"),
-              //gesture
-              onTap: () {
-                print('Home is clicked');
-              },
-              trailing: Icon(Icons.add),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings, color: Colors.grey[850]),
-              title: Text("Setting"),
-              //gesture
-              onTap: () {
-                print('Setting is clicked');
-              },
-              trailing: Icon(Icons.add),
-            ),
-            ListTile(
-              leading: Icon(Icons.question_answer, color: Colors.grey[850]),
-              title: Text("Q&A"),
-              //gesture
-              onTap: () {
-                print('Q&A is clicked');
-              },
-              trailing: Icon(Icons.add),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('Snack bar!'),
+          centerTitle: true,
         ),
-      ),
-    );
+        body: Builder(
+          builder: (BuildContext ctx) {
+            return Center(
+              child: TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red)),
+                child: Text(
+                  'Show me',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+                    content: Text('Hellow'),
+                  ));
+                },
+              ),
+            );
+          },
+        ));
   }
 }
